@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Feather } from '@expo/vector-icons'
 
 const CurrentWeather = ({ weatherData }) => {
 
     return (
-        <SafeAreaView
-            style={styles.wrapper}>
+        <SafeAreaView style={styles.wrapper}>
             <View style={styles.container}>
                 <Feather name="sun" size={100} color="black" />
                 <Text style={styles.temp}>6</Text>
@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent:'center'
+        justifyContent: 'center',
+        // backgroundColor: 'red',
     },
     temp: {
         color: 'black',
@@ -53,7 +54,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
         paddingLeft: 25,
-        marginBottom: 40
+        marginBottom: 40,
+        // backgroundColor: 'green',
     },
     description: {
         fontSize: 48

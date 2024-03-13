@@ -1,12 +1,17 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import CurrentWeather from "./src/components/CurrentWeather";
+import UpcomingWeather from "./src/components/UpcomingWeather";
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <CurrentWeather />
-    </View>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        {/* <CurrentWeather /> */}
+        <UpcomingWeather />
+      </View>
+    </SafeAreaProvider>
   )
 }
 const styles = StyleSheet.create({
