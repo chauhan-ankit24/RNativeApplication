@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Feather } from '@expo/vector-icons'
 import RowText from '../components/RowText'
+import { weatherType } from '../utilities/weatherType'
 
 const CurrentWeather = ({ weatherData }) => {
     const { wrapper, container, temperature, feels, hiLowWrapper, hiLow, bodyWrapper, description, message } = styles
@@ -16,7 +17,7 @@ const CurrentWeather = ({ weatherData }) => {
                 <RowText messageOne={'High: 8'} messageTwo={'Low: 6'} containerStyles={hiLowWrapper} messageOneStyles={hiLow} messageTwoStyles={hiLow}
                 />
             </View>
-            <RowText messageOne={"Its Sunny"} messageTwo={'Its perfect t-shirt weather'} containerStyles={bodyWrapper} messageOneStyles={description} messageTwoStyles={message} />
+            <RowText messageOne={"Its Sunny"} messageTwo={weatherType['Thunderstorm'].message} containerStyles={bodyWrapper} messageOneStyles={description} messageTwoStyles={message} />
         </SafeAreaView>
     )
 }
