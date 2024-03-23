@@ -23,21 +23,20 @@ const App = () => {
         `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API}`
       )
       const data = await res.json()
+      // console.log(data);
       setWeather(data);
-    } catch (error) {
+    } catch (e) {
       setError('Could not fetch weather')
     } finally {
       setLoading(false);
     }
-    console.log(`error is : ${error}`);
   }
-  
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setError('Permission to access location was denied');
-        console.log(error)
         return;
       }
       try {
@@ -45,15 +44,14 @@ const App = () => {
         setLat(location.coords.latitude);
         setLon(location.coords.longitude);
         await fetchWeatherData();
-        console.log('data is');
-      } catch (error) {
-        setError(error.message);
+      } catch (e) {
+        setError(e.message);
       }
     })();
   }, [lat, lon]);
 
-  if (lat)
-    console.log(lon)
+  if(weather)
+  console.log(weather)
 
   if (loading) {
     return (
