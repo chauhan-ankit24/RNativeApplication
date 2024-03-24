@@ -1,37 +1,68 @@
+import { SafeAreaView } from 'react-native-safe-area-context'
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { Feather } from '@expo/vector-icons'
 import RowText from '../components/RowText'
 import { weatherType } from '../utilities/weatherType'
 
 const CurrentWeather = ({ weatherData }) => {
-    const { wrapper, container, temperature, feels, hiLowWrapper, hiLow, bodyWrapper, description, message } = styles
+    const { main: { temp, feels_like, temp_max, temp_min }, weather } = weatherData
+    const weatherCondition = weather[0].main
+
+    const {
+        wrapper,
+        container,
+        temperature,
+        feels,
+        hiLowWrapper,
+        hiLow,
+        bodyWrapper,
+        description,
+        message
+    } = styles
 
     return (
-        <SafeAreaView style={wrapper}>
+        <SafeAreaView
+            style={[
+                wrapper,
+                { backgroundColor: weatherType[weatherCondition]?.backgroundColor }
+            ]}
+        >
             <View style={container}>
-                <Feather name="sun" size={100} color="black" />
-                <Text style={temperature}>6</Text>
-                <Text style={feels}>Feels like 5</Text>
-                <RowText messageOne={'High: 8'} messageTwo={'Low: 6'} containerStyles={hiLowWrapper} messageOneStyles={hiLow} messageTwoStyles={hiLow}
+                <Feather
+                    name={weatherType[weatherCondition]?.icon}
+                    size={100}
+                    color="white"
+                />
+                <Text style={temperature}>{`${temp}°`}</Text>
+                <Text style={feels}>{`Feels like: ${feels_like}°`}</Text>
+                <RowText
+                    messageOne={`High: ${temp_max}° `}
+                    messageTwo={`Low: ${temp_min}°`}
+                    containerStyles={hiLowWrapper}
+                    messageOneStyles={hiLow}
+                    messageTwoStyles={hiLow}
                 />
             </View>
-            <RowText messageOne={"Its Sunny"} messageTwo={weatherType['Thunderstorm'].message} containerStyles={bodyWrapper} messageOneStyles={description} messageTwoStyles={message} />
+            <RowText
+                messageOne={weather[0]?.description}
+                messageTwo={weatherType[weatherCondition]?.message}
+                containerStyles={bodyWrapper}
+                messageOneStyles={description}
+                messageTwoStyles={message}
+            />
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     wrapper: {
-        flex: 1,
-        backgroundColor: 'pink',
+        flex: 1
     },
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        // backgroundColor: 'red',
+        justifyContent: 'center'
     },
     temperature: {
         color: 'black',
@@ -41,25 +72,24 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: 'black'
     },
-    highLow: {
+    hiLow: {
         color: 'black',
         fontSize: 20
     },
-    highLowWrapper: {
+    hiLowWrapper: {
         flexDirection: 'row'
     },
     bodyWrapper: {
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
         paddingLeft: 25,
-        marginBottom: 40,
-        // backgroundColor: 'green',
+        marginBottom: 40
     },
     description: {
-        fontSize: 48
+        fontSize: 43
     },
     message: {
-        fontSize: 30
+        fontSize: 25
     }
 })
 export default CurrentWeather
